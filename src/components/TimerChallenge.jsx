@@ -3,13 +3,15 @@ import ResultModal from "./ResultModal";
 
 export default function TimerChallenge({title,targetTime}) {
 const timer=useRef();
+const dialog=useRef();
 
 const [timeExpired,setTimeExpired]=useState(false);
 const [timerStarted,setTimerStarted]=useState(false);
 
  function handleTime() {
   timer.current = setTimeout(()=> {
-        setTimeExpired(true)
+      setTimeExpired(true)
+      dialog.current.showModal();
     }, targetTime*1000)
 
      setTimerStarted(true);
@@ -21,7 +23,7 @@ const [timerStarted,setTimerStarted]=useState(false);
 
     return (
         <>
-        {timeExpired && <ResultModal targetTime={targetTime} result="lost" />}
+        {<ResultModal targetTime={targetTime} result="lost" ref={dialog} />}
         <section className="challenge">
             <h2>{title}</h2>
          
